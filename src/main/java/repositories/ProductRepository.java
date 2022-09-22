@@ -13,6 +13,6 @@ public interface ProductRepository {
 
   Future<String> insertProduct(ProductEntity entity);
 
-  Future<String> deleteProduct(String id, ProductEntity entity);
+  Future<String> deleteProduct(String id);
 
 }

@@ -6,6 +6,7 @@ import constants.Constants;
 import entities.ProductEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import java.util.List;
@@ -85,7 +86,16 @@ public class ProductRepositoryImpl implements ProductRepository {
   }
 
   @Override
-  public Future<String> deleteProduct(String id, ProductEntity entity) {
+  public Future<String> deleteProduct(String id) {
+    Future<String> future = Future.future();
+
+    mongoClient.findOneAndDelete(Constants.PRODUCTS, new JsonObject().put("productID", id),  res -> {
+      if(res.succeeded()){
+        LOGGER.info("delete success");
+      }else {
+        LOGGER.info("delete fail");
+      }
+    }) ;
     return null;
   }
 }
