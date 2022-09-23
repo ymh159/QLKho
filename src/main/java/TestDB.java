@@ -1,8 +1,5 @@
 
-import entities.ProductEntity;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import repositories.ProductRepository;
@@ -15,14 +12,14 @@ public class TestDB extends AbstractVerticle {
   @Override
   public void start() {
     ProductRepository repository = new ProductRepositoryImpl(vertx);
-    ProductEntity entity = new ProductEntity("001","123","456","789","123","123");
-
-    repository.insertProduct(entity);
-    repository.getALl().setHandler(event -> {
+    //ProductTypeEntity type = new ProductTypeEntity();
+    //ProductEntity entity = new ProductEntity("Nami","123","456", type);
+    //repository.insertProduct(entity);
+//    repository.deleteProduct("002");
+    repository.getAllProduct().setHandler(event -> {
           LOGGER.info("Future {}", event);
         }
     );
-
 
   }
 

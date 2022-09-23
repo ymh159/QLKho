@@ -7,25 +7,14 @@ import lombok.RequiredArgsConstructor;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-//@RequiredArgsConstructor
 
+@RequiredArgsConstructor
 public class ProductEntity {
-  private String _id;
-  private String productID;
+  @JsonProperty("_id")
+  private String id;
   private String name;
   private String value;
   private String price;
-//  private String typeId;
-  @JsonProperty("typeId")
-  private ProductTypeEntity typeId;
-
-//  public ProductEntity(String _id, String productID, String name, String value, String price,
-//      String typeId) {
-//    this._id = _id;
-//    this.productID = productID;
-//    this.name = name;
-//    this.value = value;
-//    this.price = price;
-//    this.typeId = typeId;
-//  }
+  @JsonProperty("type")
+  private ProductTypeEntity type;
 }

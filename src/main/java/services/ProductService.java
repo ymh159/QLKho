@@ -1,14 +1,12 @@
-package repositories;
+package services;
 
 import entities.ProductEntity;
 import io.vertx.core.Future;
 import java.util.List;
 
-public interface ProductRepository {
-  Future<List<ProductEntity>> getAllProduct();
-  Future<ProductEntity> findProductById(String id);
+public interface ProductService {
+  Future<List<ProductEntity>> getProduct(String id);
   Future<Void> insertProduct(ProductEntity entity);
   Future<ProductEntity> updateProduct(String id, ProductEntity entity);
   Future<Void> deleteProduct(String id);
-
 }

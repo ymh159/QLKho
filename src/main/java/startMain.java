@@ -5,6 +5,6 @@ public class startMain {
 
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle(new TestDB());
+    vertx.deployVerticle(new startVerticle());
   }
 }
