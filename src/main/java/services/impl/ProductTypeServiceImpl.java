@@ -1,7 +1,6 @@
 package services.impl;
 
 import entities.ProductTypeEntity;
-import entities.ProductTypeEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     if (id != null && !id.isEmpty()) {
       productTypeRepository.findProductTypeById(id).setHandler(res -> {
         if (res.succeeded()) {
-          List<ProductTypeEntity> listProduct = new ArrayList<>();
-          listProduct.add(res.result());
-          future.complete(listProduct);
+          List<ProductTypeEntity> listProductType = new ArrayList<>();
+          listProductType.add(res.result());
+          future.complete(listProductType);
         } else {
           future.fail(new Exception("Find by id not found"));
         }
@@ -49,16 +48,40 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
   @Override
   public Future<Void> insertProductType(ProductTypeEntity entity) {
-    return null;
+    Future<Void> future = Future.future();
+    productTypeRepository.insertProductType(entity).setHandler(res -> {
+      if (res.succeeded()) {
+        future.complete();
+      } else {
+        future.fail(res.cause());
+      }
+    });
+    return future;
   }
 
   @Override
   public Future<ProductTypeEntity> updateProductType(String id, ProductTypeEntity entity) {
-    return null;
+    Future<ProductTypeEntity> future = Future.future();
+    productTypeRepository.updateProductType(id, entity).setHandler(res -> {
+      if (res.succeeded()) {
+        future.complete(entity);
+      } else {
+        future.fail(res.cause());
+      }
+    });
+    return future;
   }
 
   @Override
   public Future<Void> deleteProductType(String id) {
-    return null;
+    Future<Void> future = Future.future();
+    productTypeRepository.deleteProductType(id).setHandler(res -> {
+      if (res.succeeded()) {
+        future.complete();
+      } else {
+        future.fail(res.cause());
+      }
+    });
+    return future;
   }
 }

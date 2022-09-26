@@ -17,11 +17,11 @@ public class VerticleRouter extends AbstractVerticle {
     router.post(Constants.PATH_PRODUCTS).handler(applicationHandlers::insertProduct);         // insert product
     router.put(Constants.PATH_PRODUCTS).handler(applicationHandlers::updateProduct);          // update product
     router.delete(Constants.PATH_PRODUCTS).handler(applicationHandlers::deleteProduct);       // delete product
-    router.get(Constants.PATH_PRODUCT_TYPE);          // get all product type
-    router.get(Constants.PATH_PRODUCT_TYPE + "/:_id");  // get product type by id
-    router.post(Constants.PATH_PRODUCT_TYPE);         // insert product type
-    router.put(Constants.PATH_PRODUCT_TYPE);          // update product type
-    router.delete(Constants.PATH_PRODUCT_TYPE);       // delete product type
+    router.get(Constants.PATH_PRODUCT_TYPE).handler(applicationHandlers::getProductType);             // get all product type
+    router.get(Constants.PATH_PRODUCT_TYPE + "/:_id").handler(applicationHandlers::getProductType);   // get product type by id
+    router.post(Constants.PATH_PRODUCT_TYPE).handler(applicationHandlers::insertProductType);         // insert product type
+    router.put(Constants.PATH_PRODUCT_TYPE).handler(applicationHandlers::updateProductType);          // update product type
+    router.delete(Constants.PATH_PRODUCT_TYPE).handler(applicationHandlers::deleteProductType);       // delete product type
     return router;
   }
 }
