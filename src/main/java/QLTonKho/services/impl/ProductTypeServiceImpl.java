@@ -1,15 +1,15 @@
-package services.impl;
+package QLTonKho.services.impl;
 
-import entities.ProductTypeEntity;
+import QLTonKho.entities.ProductTypeEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import repositories.ProductTypeRepository;
-import repositories.impl.ProductTypeRepositoryImpl;
-import services.ProductTypeService;
+import QLTonKho.repositories.ProductTypeRepository;
+import QLTonKho.repositories.impl.ProductTypeRepositoryImpl;
+import QLTonKho.services.ProductTypeService;
 
 public class ProductTypeServiceImpl implements ProductTypeService {
   public final ProductTypeRepository productTypeRepository;

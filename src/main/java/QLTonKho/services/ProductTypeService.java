@@ -1,6 +1,6 @@
-package services;
+package QLTonKho.services;
 
-import entities.ProductTypeEntity;
+import QLTonKho.entities.ProductTypeEntity;
 import io.vertx.core.Future;
 import java.util.List;
 

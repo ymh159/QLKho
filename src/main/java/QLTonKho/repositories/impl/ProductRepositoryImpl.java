@@ -1,8 +1,8 @@
-package repositories.impl;
+package QLTonKho.repositories.impl;
 
-import connectdb.MongoDBClient;
-import constants.Constants;
-import entities.ProductEntity;
+import QLTonKho.connectdb.MongoDBClient;
+import QLTonKho.constants.Constants;
+import QLTonKho.entities.ProductEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -11,7 +11,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import repositories.ProductRepository;
+import QLTonKho.repositories.ProductRepository;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
@@ -47,7 +47,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public Future<ProductEntity> findProductById(String id) {
     Future<ProductEntity> future = Future.future();
-    mongoClient.findOne(Constants.COLLECTION_PRODUCTS, new JsonObject().put(Constants.ID, id), null, res -> {
+    mongoClient.findOne(Constants.COLLECTION_PRODUCTS, new JsonObject().put(Constants._ID, id), null, res -> {
       JsonObject json = res.result();
       ProductEntity entity;
 
@@ -90,7 +90,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public Future<ProductEntity> updateProduct(String id,ProductEntity entity) {
     Future<ProductEntity> future = Future.future();
-    JsonObject query = new JsonObject().put(Constants.ID, id);
+    JsonObject query = new JsonObject().put(Constants._ID, id);
     JsonObject jsonUpdate = new JsonObject().put(Constants.DOCUMENT_SET, JsonObject.mapFrom(entity));
 
     mongoClient.updateCollection(Constants.COLLECTION_PRODUCTS, query, jsonUpdate,res -> {
@@ -114,7 +114,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public Future<Void> deleteProduct(String id) {
     Future<Void> future = Future.future();
-    mongoClient.findOneAndDelete(Constants.COLLECTION_PRODUCTS, new JsonObject().put(Constants.ID, id),  res -> {
+    mongoClient.findOneAndDelete(Constants.COLLECTION_PRODUCTS, new JsonObject().put(Constants._ID, id),  res -> {
       if(res.succeeded()){
         future.complete();
         LOGGER.info("Delete product success id: {}", id);

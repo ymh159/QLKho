@@ -1,16 +1,15 @@
-package services.impl;
+package QLTonKho.services.impl;
 
-import entities.ProductEntity;
+import QLTonKho.entities.ProductEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import repositories.ProductRepository;
-import repositories.impl.ProductRepositoryImpl;
-import services.ProductService;
-import utils.SetFutureUtils;
+import QLTonKho.repositories.ProductRepository;
+import QLTonKho.repositories.impl.ProductRepositoryImpl;
+import QLTonKho.services.ProductService;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -64,7 +63,6 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Future<ProductEntity> updateProduct(String id, ProductEntity entity) {
     Future<ProductEntity> future = Future.future();
-    SetFutureUtils setFuture = new SetFutureUtils();
     productRepository.updateProduct(id, entity).setHandler(res -> {
       if (res.succeeded()) {
         future.complete(entity);
@@ -88,4 +86,5 @@ public class ProductServiceImpl implements ProductService {
     });
     return future;
   }
+
 }

@@ -1,9 +1,8 @@
-package repositories.impl;
+package QLTonKho.repositories.impl;
 
-import connectdb.MongoDBClient;
-import constants.Constants;
-import entities.ProductEntity;
-import entities.ProductTypeEntity;
+import QLTonKho.connectdb.MongoDBClient;
+import QLTonKho.constants.Constants;
+import QLTonKho.entities.ProductTypeEntity;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -12,7 +11,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import repositories.ProductTypeRepository;
+import QLTonKho.repositories.ProductTypeRepository;
 
 public class ProductTypeRepositoryImpl implements ProductTypeRepository {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryImpl.class);
@@ -46,7 +45,7 @@ public class ProductTypeRepositoryImpl implements ProductTypeRepository {
   @Override
   public Future<ProductTypeEntity> findProductTypeById(String id) {
     Future<ProductTypeEntity> future = Future.future();
-    mongoClient.findOne(Constants.COLLECTION_PRODUCTS_TYPE, new JsonObject().put(Constants.ID, id), null, res -> {
+    mongoClient.findOne(Constants.COLLECTION_PRODUCTS_TYPE, new JsonObject().put(Constants._ID, id), null, res -> {
       JsonObject json = res.result();
       ProductTypeEntity entity;
       if (res.succeeded()) {
@@ -87,7 +86,7 @@ public class ProductTypeRepositoryImpl implements ProductTypeRepository {
   @Override
   public Future<ProductTypeEntity> updateProductType(String id, ProductTypeEntity entity) {
     Future<ProductTypeEntity> future = Future.future();
-    JsonObject query = new JsonObject().put(Constants.ID, id);
+    JsonObject query = new JsonObject().put(Constants._ID, id);
     JsonObject jsonUpdate = new JsonObject().put(Constants.DOCUMENT_SET, JsonObject.mapFrom(entity));
 
     mongoClient.updateCollection(Constants.COLLECTION_PRODUCTS_TYPE, query, jsonUpdate,res -> {
@@ -111,7 +110,7 @@ public class ProductTypeRepositoryImpl implements ProductTypeRepository {
   @Override
   public Future<Void> deleteProductType(String id) {
     Future<Void> future = Future.future();
-    mongoClient.findOneAndDelete(Constants.COLLECTION_PRODUCTS_TYPE, new JsonObject().put(Constants.ID, id),  res -> {
+    mongoClient.findOneAndDelete(Constants.COLLECTION_PRODUCTS_TYPE, new JsonObject().put(Constants._ID, id),  res -> {
       if(res.succeeded()){
         future.complete();
         LOGGER.info("Delete productType success id: {}", id);

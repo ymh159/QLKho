@@ -1,7 +1,6 @@
-package repositories;
+package QLTonKho.repositories;
 
-import entities.ProductEntity;
-import entities.ProductTypeEntity;
+import QLTonKho.entities.ProductTypeEntity;
 import io.vertx.core.Future;
 import java.util.List;
 

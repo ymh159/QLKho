@@ -1,28 +1,33 @@
-package router.handlers;
+package QLTonKho.router.handlers;
 
-import constants.Constants;
-import entities.ProductEntity;
-import entities.ProductTypeEntity;
+import QLTonKho.constants.Constants;
+import QLTonKho.entities.ProductEntity;
+import QLTonKho.entities.ProductTypeEntity;
+import QLTonKho.services.InventoryService;
+import QLTonKho.services.impl.InventoryServiceImpl;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import services.ProductService;
-import services.ProductTypeService;
-import services.impl.ProductServiceImpl;
-import services.impl.ProductTypeServiceImpl;
+import QLTonKho.services.ProductService;
+import QLTonKho.services.ProductTypeService;
+import QLTonKho.services.impl.ProductServiceImpl;
+import QLTonKho.services.impl.ProductTypeServiceImpl;
 
 public class ApplicationHandlers {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationHandlers.class);
   private ProductService productService;
   private ProductTypeService productTypeService;
+  private InventoryService inventoryService;
 
   public ApplicationHandlers(Vertx vertx) {
     productService = new ProductServiceImpl(vertx);
     productTypeService = new ProductTypeServiceImpl(vertx);
+    inventoryService = new InventoryServiceImpl(vertx);
+
   }
 
   public void getProduct(RoutingContext routingContext) {
@@ -51,7 +56,9 @@ public class ApplicationHandlers {
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
@@ -68,7 +75,9 @@ public class ApplicationHandlers {
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
@@ -77,20 +86,22 @@ public class ApplicationHandlers {
   public void deleteProduct(RoutingContext routingContext) {
     routingContext.request().bodyHandler(handler -> {
       JsonObject json = handler.toJsonObject();
-      String idProduct = json.getString(Constants.ID);
+      String idProduct = json.getString(Constants._ID);
       productService.deleteProduct(idProduct).setHandler(res -> {
         if (res.succeeded()) {
           routingContext.response()
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
   }
   public void getProductType(RoutingContext routingContext) {
-    String productTypeId = routingContext.request().getParam(Constants.ID);
+    String productTypeId = routingContext.request().getParam(Constants._ID);
     productTypeService.getProductType(productTypeId).setHandler(res -> {
       if (res.succeeded()) {
         routingContext.response()
@@ -114,7 +125,9 @@ public class ApplicationHandlers {
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
@@ -131,7 +144,9 @@ public class ApplicationHandlers {
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
@@ -140,16 +155,33 @@ public class ApplicationHandlers {
   public void deleteProductType(RoutingContext routingContext) {
     routingContext.request().bodyHandler(handler -> {
       JsonObject json = handler.toJsonObject();
-      String idProductType = json.getString(Constants.ID);
+      String idProductType = json.getString(Constants._ID);
       productTypeService.deleteProductType(idProductType).setHandler(res -> {
         if (res.succeeded()) {
           routingContext.response()
               .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
               .end(Json.encodePrettily(res.result()));
         } else {
-          res.cause().getMessage();
+          routingContext.response()
+              .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+              .end(Json.encodePrettily(res.cause().getMessage()));
         }
       });
     });
   }
+
+  public void getInventory(RoutingContext routingContext) {
+    inventoryService.getAllInventory().setHandler(res -> {
+      if (res.succeeded()) {
+        routingContext.response()
+            .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+            .end(Json.encodePrettily(res.result()));
+      } else {
+        routingContext.response()
+            .putHeader(Constants.CONTENT_TYPE, Constants.CONTENT_VALUE_JSON)
+            .end(Json.encodePrettily(res.cause().getMessage()));
+      }
+    });
+  }
+
 }
