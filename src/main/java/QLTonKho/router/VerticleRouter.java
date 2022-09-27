@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import QLTonKho.router.handlers.ApplicationHandlers;
 
 public class VerticleRouter extends AbstractVerticle {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationHandlers.class);
   public Router getRouter(Vertx vertx) {
     ApplicationHandlers applicationHandlers = new ApplicationHandlers(vertx);
 
